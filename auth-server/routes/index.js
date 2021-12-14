@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  res.send('hello');
+  res.json({ id: 3, email: 'hello@world' });
 });
 
 module.exports = router;
