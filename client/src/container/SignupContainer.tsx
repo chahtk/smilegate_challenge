@@ -20,13 +20,13 @@ const SignupContainer = () => {
     if (e.target.name === EMAIL) setEmail(e.target.value);
     if (e.target.name === CODE) setCode(e.target.value);
   };
-  const onClick = async (e?: ButtonEvent): Promise<void> => {
-    if (e?.target.name === EMAIL) {
+  const onClick = async (e: ButtonEvent): Promise<void> => {
+    if (e.target.name === EMAIL) {
       const status = await emailAuthApi(email);
       if (status === 200) setProgress(true);
       else alert(`error code: ${status}`);
     }
-    if (e?.target.name === CODE) {
+    if (e.target.name === CODE) {
       // api: send code
       setAuthState(true);
     }
