@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface IInput {
-  id?: string;
+  name?: string;
   type?: 'password';
   placeholder?: string;
   disabled?: boolean;
@@ -19,9 +19,16 @@ const StyledInput = styled.input`
 `;
 
 const Input = (props: IInput) => {
-  const { id, type, value, disabled, placeholder, onChange } = props;
+  const { name, type, value, disabled, placeholder, onChange } = props;
   return (
-    <StyledInput id={id} value={value} type={type} placeholder={placeholder} onChange={onChange} disabled={disabled} />
+    <StyledInput
+      name={name}
+      value={value}
+      type={type}
+      placeholder={placeholder}
+      onChange={onChange}
+      disabled={disabled}
+    />
   );
 };
 
