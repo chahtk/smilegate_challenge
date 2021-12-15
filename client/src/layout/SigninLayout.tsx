@@ -3,8 +3,10 @@ import SigninContainer from '../container/SinginContainer';
 import styled from 'styled-components';
 
 const Layout = styled.main`
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const SigninLayout = () => {
