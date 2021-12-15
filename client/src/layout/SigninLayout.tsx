@@ -1,19 +1,12 @@
 import React from 'react';
 import SigninContainer from '../container/SinginContainer';
-import styled from 'styled-components';
-
-const Layout = styled.main`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
+import PutCenter from './PutCenter';
 
 const SigninLayout = () => {
   return (
-    <Layout>
+    <PutCenter>
       <SigninContainer />
-    </Layout>
+    </PutCenter>
   );
 };
 
