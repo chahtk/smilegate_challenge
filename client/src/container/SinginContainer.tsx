@@ -3,16 +3,33 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
 
-const StyledComponent = styled.article`
-  width: 400px;
-  height: 400px;
+const StyledContainer = styled.article`
+  width: 320px;
+  height: 220px;
   border: 1px solid red;
   border-radius: 5px;
   overflow: hidden;
+  text-align: center;
+  padding-top: 20px;
+`;
+
+const InputLayer = styled.section`
+  margin: 10px auto;
+`;
+
+const SignLayer = styled.article`
+  float: right;
+  margin-right: 70px;
+`;
+
+const A = styled.a`
+  margin-right: 12px;
+  color: blue;
+  cursor: pointer;
 `;
 
 const SigninContainer = () => {
-  // for id(label used this)
+  // id of input-component
   const [EMAIL, PASSWORD] = ['email', 'password'];
 
   // state
@@ -26,24 +43,25 @@ const SigninContainer = () => {
   };
   const onClick = () => {
     // send (email + password) using api
+    console.log('try login api');
   };
 
   return (
-    <StyledComponent>
-      <form>
-        <div>login</div>
+    <StyledContainer>
+      <h2>LOGIN</h2>
+      <InputLayer>
         <Input id={EMAIL} value={email} placeholder="ID" onChange={onChange} />
-        <Input
-          id={PASSWORD}
-          value={password}
-          placeholder="PW"
-          type="password"
-          onChange={onChange}
-        />
+      </InputLayer>
+      <InputLayer>
+        <Input id={PASSWORD} value={password} placeholder="PW" type="password" onChange={onChange} />
+      </InputLayer>
+      <SignLayer>
+        <A href="/signup" target="_blank">
+          sign up
+        </A>
         <Button onClick={onClick} text="LOGIN" />
-      </form>
-      <a>sign up</a>
-    </StyledComponent>
+      </SignLayer>
+    </StyledContainer>
   );
 };
 

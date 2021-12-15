@@ -60,10 +60,7 @@ const initialState: UserState = {
   email: 'default',
 };
 
-const userReducer = (
-  state: UserState = initialState,
-  action: any,
-): UserState => {
+const userReducer = (state: UserState = initialState, action: any): UserState => {
   switch (action.type) {
     case LOGIN:
       return {
