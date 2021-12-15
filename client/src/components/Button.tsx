@@ -8,10 +8,14 @@ interface IButton {
 
 const StyledButton = styled.button`
   border: none;
+  border-radius: 10px;
   outline: none;
-  background-color: aliceblue;
+  background-color: #e4eba4;
   padding: 8px 10px;
   cursor: pointer;
+  &:hover {
+    color: white;
+  }
 `;
 
 const Button = (props: IButton) => {

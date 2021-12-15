@@ -6,8 +6,8 @@ import styled from 'styled-components';
 const StyledContainer = styled.article`
   width: 320px;
   height: 220px;
-  border: 1px solid red;
-  border-radius: 5px;
+  background-color: white;
+  border-radius: 10px;
   overflow: hidden;
   text-align: center;
   padding-top: 20px;
@@ -24,8 +24,12 @@ const SignLayer = styled.article`
 
 const A = styled.a`
   margin-right: 12px;
-  color: blue;
+  color: black;
+  text-decoration: none;
   cursor: pointer;
+  &:hover {
+    color: blue;
+  }
 `;
 
 const SigninContainer = () => {
@@ -59,7 +63,7 @@ const SigninContainer = () => {
         <A href="/signup" target="_blank">
           sign up
         </A>
-        <Button onClick={onClick} text="LOGIN" />
+        <Button onClick={onClick} text="SIGN IN" />
       </SignLayer>
     </StyledContainer>
   );
