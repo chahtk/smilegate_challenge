@@ -9,5 +9,23 @@
 - 대화창에 있는 신고 버튼을 누르면 해당 유저의 정보가 관리자에게 전달 됩니다.(추가 기능)
 - 관리자는 신고탭에서 신고받은 유저들의 리스트와 채팅내역을 확인할 수 있고, 차단(이용불가)할 수 있습니다.
 
-## 아키텍처
+## 시스템 아키텍처
 ![architecture](https://user-images.githubusercontent.com/44664867/146127014-9ac5cb2c-db5f-435a-a8c8-dca4baea706e.JPG)
+
+## 프론트엔드 디렉토리구조
+```
+- src
+|
+|------- UI 관련 -------
+|--- components : 재사용 가능한 가장 작은 단위
+|--- container  : data, state로 component를 다룸
+|--- layout     : 디자인을 고려하여 container들을 배치
+|--- pages      : 라우터에 의해 호출되며 layout 렌더링
+|--- routes     : 로그인 상태에 따라 구분
+|
+|-------  그 외  --------
+|--- modules    : redux modules
+|--- styleds    : style 관련
+|--- api        : api 관련
+|
+```
