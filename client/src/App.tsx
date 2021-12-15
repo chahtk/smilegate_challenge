@@ -1,12 +1,12 @@
 import React from 'react';
-import Test from './examples/test';
+import { useSelector } from 'react-redux';
+import { RootState } from './modules';
+import PublicRoute from './routes/PublicRoute';
+import TestPage from './pages/TestPage';
 
 function App() {
-  return (
-    <div className="App">
-      <Test></Test>
-    </div>
-  );
+  const userInfo = useSelector((state: RootState) => state.user);
+  return <>{userInfo.login ? <TestPage /> : <PublicRoute />}</>;
 }
 
 export default App;
