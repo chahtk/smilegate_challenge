@@ -5,6 +5,7 @@ interface IInput {
   id?: string;
   type?: 'password';
   placeholder?: string;
+  disabled?: boolean;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -18,8 +19,10 @@ const StyledInput = styled.input`
 `;
 
 const Input = (props: IInput) => {
-  const { id, type, value, placeholder, onChange } = props;
-  return <StyledInput id={id} value={value} type={type} placeholder={placeholder} onChange={onChange} />;
+  const { id, type, value, disabled, placeholder, onChange } = props;
+  return (
+    <StyledInput id={id} value={value} type={type} placeholder={placeholder} onChange={onChange} disabled={disabled} />
+  );
 };
 
 export default Input;
