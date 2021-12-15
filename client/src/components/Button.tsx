@@ -1,11 +1,20 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+interface ButtonTarget extends EventTarget {
+  name: string;
+}
+
+export interface ButtonEvent extends React.MouseEvent<HTMLButtonElement> {
+  target: ButtonTarget;
+}
+
 interface IButton {
   name?: string;
   text?: string;
   disabled?: boolean;
-  onClick: () => void;
+  // onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: (e: ButtonEvent) => void | Promise<void>;
 }
 
 const StyledButton = styled.button`

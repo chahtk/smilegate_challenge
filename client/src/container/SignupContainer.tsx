@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { emailAuthApi } from '../api/emailAuthApi';
-import Button from '../components/Button';
+import Button, { ButtonEvent } from '../components/Button';
 import Input from '../components/Input';
 import SignContainer from '../styles/signContainer';
 
@@ -20,16 +20,16 @@ const SignupContainer = () => {
     if (e.target.name === EMAIL) setEmail(e.target.value);
     if (e.target.name === CODE) setCode(e.target.value);
   };
-  const onClick = async (): Promise<void> => {
-    // if (e.target.name === EMAIL) {
-    //   const status = await emailAuthApi(email);
-    //   if (status === 200) setProgress(true);
-    //   else alert(`error code: ${status}`);
-    // }
-    // if (e.target.name === CODE) {
-    //   // api: send code
-    //   setAuthState(true);
-    // }
+  const onClick = async (e?: ButtonEvent): Promise<void> => {
+    if (e?.target.name === EMAIL) {
+      const status = await emailAuthApi(email);
+      if (status === 200) setProgress(true);
+      else alert(`error code: ${status}`);
+    }
+    if (e?.target.name === CODE) {
+      // api: send code
+      setAuthState(true);
+    }
   };
   return (
     <SignContainer>
