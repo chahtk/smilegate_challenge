@@ -10,6 +10,7 @@ const LOGOUT = 'user/LOGOUT';
 
 // type of state
 type UserState = {
+  login: boolean;
   id: number;
   email: string;
 };
@@ -54,8 +55,9 @@ type UserAction =
   | ReturnType<typeof loginSuccessAction>;
 
 const initialState: UserState = {
+  login: false,
   id: -1,
-  email: '',
+  email: 'default',
 };
 
 const userReducer = (
@@ -65,11 +67,13 @@ const userReducer = (
   switch (action.type) {
     case LOGIN:
       return {
+        login: false,
         id: 999,
         email: 'loading',
       };
     case LOGIN_SUCCESS:
       return {
+        login: true,
         id: action.payload.id,
         email: action.payload.email,
       };
