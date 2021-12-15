@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer, { rootSaga } from './modules';
 import createSagaMiddleware from 'redux-saga';
+import GlobalStyle from './styles/Global';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,6 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <GlobalStyle />
         <App />
       </BrowserRouter>
     </Provider>
