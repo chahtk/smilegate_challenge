@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface IButton {
+  name?: string;
   text?: string;
   disabled?: boolean;
   onClick: () => void;
@@ -24,9 +25,9 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props: IButton) => {
-  const { text, onClick, disabled } = props;
+  const { text, name, onClick, disabled } = props;
   return (
-    <StyledButton type="button" onClick={onClick} disabled={disabled}>
+    <StyledButton name={name} type="button" onClick={onClick} disabled={disabled}>
       {text}
     </StyledButton>
   );
