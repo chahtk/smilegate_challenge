@@ -5,10 +5,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-
+const redis = require('./config/redis');
 const indexRouter = require('./routes/index');
 
 const app = express();
+
+// redis connect
+redis.connect();
 
 // cors
 app.use(cors());
