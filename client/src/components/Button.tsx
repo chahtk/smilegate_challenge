@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Loading from '../components/Loading';
 
 interface ButtonTarget extends EventTarget {
   name: string;
@@ -13,7 +14,8 @@ interface IButton {
   name?: string;
   text?: string;
   disabled?: boolean;
-  // onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  loading?: boolean;
+  children?: React.ReactNode;
   onClick: (e: ButtonEvent) => void | Promise<void>;
 }
 
@@ -34,10 +36,10 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props: IButton) => {
-  const { text, name, onClick, disabled } = props;
+  const { text, name, onClick, disabled, loading } = props;
   return (
-    <StyledButton name={name} type="button" onClick={onClick} disabled={disabled}>
-      {text}
+    <StyledButton name={name} type="button" onClick={onClick} disabled={disabled || loading}>
+      {loading ? <Loading /> : text}
     </StyledButton>
   );
 };
