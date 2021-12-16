@@ -18,28 +18,46 @@ const ButtonLayer = styled.article`
   margin-top: 15px;
 `;
 
+const cantSubmit = (pass: string, passCheck: string, userName: string): boolean =>
+  !(userName !== '' && pass !== '' && passCheck !== '');
+
 const SignupContainer = () => {
-  const [EMAIL, CODE] = ['email', 'code'];
+  const [EMAIL, CODE, PASS, PASSCHECK, USERNAME, SIGNUP] = ['email', 'code', 'pass', 'passcheck', 'username', 'signup'];
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
+  const [pass, setPass] = useState('');
+  const [userName, setUserName] = useState('');
+  const [passCheck, setPassCheck] = useState('');
   const [progress, setProgress] = useState(false);
   const [authState, setAuthState] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === EMAIL) setEmail(e.target.value);
     if (e.target.name === CODE) setCode(e.target.value);
+    if (e.target.name === PASS) setPass(e.target.value);
+    if (e.target.name === PASSCHECK) setPassCheck(e.target.value);
+    if (e.target.name === USERNAME) setUserName(e.target.value);
   };
   const onClick = async (e: ButtonEvent): Promise<void> => {
     if (e.target.name === EMAIL) {
       const status = await emailAuthApi(email);
       if (status === 200) setProgress(true);
-      else alert(`error code: ${status}`);
+      else alert(`error code: ${status}`); // 서버와 연결 안되면 false
     }
     if (e.target.name === CODE) {
       // api: send code
       setAuthState(true);
     }
+    if (e.target.name === SIGNUP) {
+      if (pass !== passCheck) {
+        alert('비밀번호가 일치하지 않습니다');
+        setPass('');
+        setPassCheck('');
+      }
+      // submit api (email, pass, username)
+    }
   };
+
   return (
     <SignContainer>
       {!progress ? (
@@ -66,17 +84,17 @@ const SignupContainer = () => {
         <section>
           <MarginRight>
             <InputLayer>
-              <Input placeholder="PW" value="" onChange={() => null} />
+              <Input placeholder="PW" name={PASS} value={pass} onChange={onChange} />
             </InputLayer>
             <InputLayer>
-              <Input placeholder="CHECK PW" value="" onChange={() => null} />
+              <Input placeholder="CHECK PW" name={PASSCHECK} value={passCheck} onChange={onChange} />
             </InputLayer>
             <InputLayer>
-              <Input placeholder="USER NAME" value="" onChange={() => null} />
+              <Input placeholder="USER NAME" name={USERNAME} value={userName} onChange={onChange} />
             </InputLayer>
           </MarginRight>
           <ButtonLayer>
-            <Button text="SIGN UP" onClick={() => undefined} />
+            <Button text="SIGN UP" name={SIGNUP} onClick={onClick} disabled={cantSubmit(pass, passCheck, userName)} />
           </ButtonLayer>
         </section>
       )}
