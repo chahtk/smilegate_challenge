@@ -5,8 +5,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const redis = require('./config/redis');
 const indexRouter = require('./routes/index');
+const redis = require('./config/redis');
+require('./config/mysql');
 
 const app = express();
 
