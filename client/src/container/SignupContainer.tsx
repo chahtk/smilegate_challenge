@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { emailSendApi, codeSendApi } from '../api/emailAuthApi';
+import { signUpApi } from '../api/signApi';
 import Button, { ButtonEvent } from '../components/Button';
 import Input from '../components/Input';
 import { InputLayer, SignContainer } from '../styles/signContainer';
@@ -43,19 +44,27 @@ const SignupContainer = () => {
       const status = await emailSendApi(email);
       if (status === 204) setProgress(true);
       else alert(`error code: ${status}`); // 서버와 연결 안되면 false
+      return;
     }
     if (e.target.name === CODE) {
       const status = await codeSendApi(email, code);
       if (status === 204) setAuthState(true);
       else alert('wrong code');
+      return;
     }
     if (e.target.name === SIGNUP) {
       if (pass !== passCheck) {
         alert('비밀번호가 일치하지 않습니다');
         setPass('');
         setPassCheck('');
+        return;
       }
       // submit api (email, pass, username)
+      const status = await signUpApi(email, pass, userName);
+      if (status === 201) {
+        console.log('signup ok');
+        // redirect /signin
+      } else alert('signup fail');
     }
   };
 
@@ -85,10 +94,10 @@ const SignupContainer = () => {
         <section>
           <MarginRight>
             <InputLayer>
-              <Input placeholder="PW" name={PASS} value={pass} onChange={onChange} />
+              <Input placeholder="PW" name={PASS} type="password" value={pass} onChange={onChange} />
             </InputLayer>
             <InputLayer>
-              <Input placeholder="CHECK PW" name={PASSCHECK} value={passCheck} onChange={onChange} />
+              <Input placeholder="CHECK PW" name={PASSCHECK} type="password" value={passCheck} onChange={onChange} />
             </InputLayer>
             <InputLayer>
               <Input placeholder="USER NAME" name={USERNAME} value={userName} onChange={onChange} />
