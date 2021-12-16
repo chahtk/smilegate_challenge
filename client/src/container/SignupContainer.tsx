@@ -5,6 +5,7 @@ import { signUpApi } from '../api/signApi';
 import Button, { ButtonEvent } from '../components/Button';
 import Input from '../components/Input';
 import { InputLayer, SignContainer } from '../styles/signContainer';
+import { useHistory } from 'react-router-dom';
 
 const MarginLeft = styled.span`
   margin-left: 5px;
@@ -31,6 +32,7 @@ const SignupContainer = () => {
   const [passCheck, setPassCheck] = useState('');
   const [progress, setProgress] = useState(false);
   const [authState, setAuthState] = useState(false);
+  const history = useHistory();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === EMAIL) setEmail(e.target.value);
@@ -64,6 +66,7 @@ const SignupContainer = () => {
       if (status === 201) {
         alert('signup ok');
         // redirect /signin
+        history.push('/signin');
       } else alert('signup fail');
     }
   };
