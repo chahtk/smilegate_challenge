@@ -3,4 +3,4 @@ const codeGenerator = () => {
   return randNumber.toString().padStart(6, 0);
 };
 
-export default codeGenerator;
+module.exports = codeGenerator;
