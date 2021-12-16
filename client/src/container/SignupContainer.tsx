@@ -62,7 +62,7 @@ const SignupContainer = () => {
       // submit api (email, pass, username)
       const status = await signUpApi(email, pass, userName);
       if (status === 201) {
-        console.log('signup ok');
+        alert('signup ok');
         // redirect /signin
       } else alert('signup fail');
     }
