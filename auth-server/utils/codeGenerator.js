@@ -1,5 +1,5 @@
 const codeGenerator = () => {
-  const randNumber = Math.random() * 1000000;
+  const randNumber = parseInt(Math.random() * 1000000, 10);
   return randNumber.toString().padStart(6, 0);
 };
 
