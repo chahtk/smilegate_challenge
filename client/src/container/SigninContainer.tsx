@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import SignContainer from '../styles/signContainer';
-
-const InputLayer = styled.section`
-  margin: 10px auto;
-`;
+import { InputLayer, SignContainer } from '../styles/signContainer';
 
 const SignLayer = styled.article`
   float: right;
+  margin-top: 20px;
   margin-right: 70px;
 `;
 

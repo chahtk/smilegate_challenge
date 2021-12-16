@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const SignContainer = styled.article`
+export const InputLayer = styled.section``;
+
+export const SignContainer = styled.article`
   width: 320px;
   height: 220px;
   background-color: white;
@@ -9,5 +11,3 @@ const SignContainer = styled.article`
   text-align: center;
   padding-top: 20px;
 `;
-
-export default SignContainer;
