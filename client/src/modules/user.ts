@@ -1,5 +1,5 @@
 import { call, delay, put, takeLeading } from 'redux-saga/effects';
-import { getUserProfile, UserProfile } from '../api/testApi';
+// import { getUserProfile, UserProfile } from '../api/testApi';
 
 // LOGIN Action Type
 const LOGIN = 'LOGIN';
@@ -29,19 +29,19 @@ export const logoutAction = () => ({
 
 function* loginSaga() {
   yield delay(2000);
-  try {
-    const data: UserProfile = yield call(getUserProfile);
-    yield put({
-      type: LOGIN_SUCCESS,
-      payload: data,
-    });
-  } catch (e) {
-    yield put({
-      type: LOGIN_ERROR,
-      payload: e,
-      error: true,
-    });
-  }
+  // try {
+  //   const data: UserProfile = yield call(getUserProfile);
+  //   yield put({
+  //     type: LOGIN_SUCCESS,
+  //     payload: data,
+  //   });
+  // } catch (e) {
+  //   yield put({
+  //     type: LOGIN_ERROR,
+  //     payload: e,
+  //     error: true,
+  //   });
+  // }
 }
 
 export function* userSaga() {

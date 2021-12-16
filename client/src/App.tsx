@@ -6,7 +6,7 @@ import TestPage from './pages/TestPage';
 
 function App() {
   const userInfo = useSelector((state: RootState) => state.user);
-  return <>{userInfo.login ? <TestPage /> : <PublicRoute />}</>;
+  return <>{userInfo.login ? <div>logined!</div> : <PublicRoute />}</>;
 }
 
 export default App;
