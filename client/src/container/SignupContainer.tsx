@@ -45,7 +45,7 @@ const SignupContainer = () => {
       else alert(`error code: ${status}`); // 서버와 연결 안되면 false
     }
     if (e.target.name === CODE) {
-      const status = await codeSendApi(code);
+      const status = await codeSendApi(email, code);
       if (status === 204) setAuthState(true);
       else alert('wrong code');
     }
