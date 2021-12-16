@@ -1,5 +1,5 @@
 import React from 'react';
-import SigninContainer from '../container/SinginContainer';
+import SigninContainer from '../container/SigninContainer';
 import PutCenter from './PutCenter';
 
 const SigninLayout = () => {
