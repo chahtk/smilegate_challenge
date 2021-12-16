@@ -32,6 +32,7 @@ const SignupContainer = () => {
   const [passCheck, setPassCheck] = useState('');
   const [progress, setProgress] = useState(false);
   const [authState, setAuthState] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -42,24 +43,22 @@ const SignupContainer = () => {
     if (e.target.name === USERNAME) setUserName(e.target.value);
   };
   const onClick = async (e: ButtonEvent): Promise<void> => {
+    setLoading(true);
     if (e.target.name === EMAIL) {
       const status = await emailSendApi(email);
       if (status === 204) setProgress(true);
       else alert(`error code: ${status}`); // 서버와 연결 안되면 false
-      return;
     }
     if (e.target.name === CODE) {
       const status = await codeSendApi(email, code);
       if (status === 204) setAuthState(true);
       else alert('wrong code');
-      return;
     }
     if (e.target.name === SIGNUP) {
       if (pass !== passCheck) {
         alert('비밀번호가 일치하지 않습니다');
         setPass('');
         setPassCheck('');
-        return;
       }
       // submit api (email, pass, username)
       const status = await signUpApi(email, pass, userName);
@@ -69,6 +68,7 @@ const SignupContainer = () => {
         history.push('/signin');
       } else alert('signup fail');
     }
+    setLoading(false);
   };
 
   return (
@@ -77,7 +77,7 @@ const SignupContainer = () => {
         <section>
           <Input name={EMAIL} placeholder="EMAIL FOR AUTH" value={email} onChange={onChange} disabled={progress} />
           <MarginLeft>
-            <Button name={EMAIL} text="SEND" onClick={onClick} disabled={progress} />
+            <Button name={EMAIL} text="SEND" onClick={onClick} disabled={progress} loading={loading} />
           </MarginLeft>
         </section>
       ) : (
@@ -89,7 +89,7 @@ const SignupContainer = () => {
         <section>
           <Input name={CODE} placeholder="AUTH CODE" value={code} onChange={onChange} disabled={authState} />
           <MarginLeft>
-            <Button name={CODE} text="SEND" onClick={onClick} disabled={authState} />
+            <Button name={CODE} text="SEND" onClick={onClick} disabled={authState} loading={loading} />
           </MarginLeft>
         </section>
       )}
@@ -107,7 +107,13 @@ const SignupContainer = () => {
             </InputLayer>
           </MarginRight>
           <ButtonLayer>
-            <Button text="SIGN UP" name={SIGNUP} onClick={onClick} disabled={cantSubmit(pass, passCheck, userName)} />
+            <Button
+              text="SIGN UP"
+              name={SIGNUP}
+              onClick={onClick}
+              disabled={cantSubmit(pass, passCheck, userName)}
+              loading={loading}
+            />
           </ButtonLayer>
         </section>
       )}
