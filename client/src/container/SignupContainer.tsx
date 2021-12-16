@@ -3,10 +3,19 @@ import styled from 'styled-components';
 import { emailAuthApi } from '../api/emailAuthApi';
 import Button, { ButtonEvent } from '../components/Button';
 import Input from '../components/Input';
-import SignContainer from '../styles/signContainer';
+import { InputLayer, SignContainer } from '../styles/signContainer';
 
 const MarginLeft = styled.span`
   margin-left: 5px;
+`;
+
+const MarginRight = styled.section`
+  margin-right: 64px;
+`;
+
+const ButtonLayer = styled.article`
+  margin-left: 16px;
+  margin-top: 15px;
 `;
 
 const SignupContainer = () => {
@@ -33,25 +42,43 @@ const SignupContainer = () => {
   };
   return (
     <SignContainer>
-      <Input name={EMAIL} placeholder="EMAIL FOR AUTH" value={email} onChange={onChange} disabled={progress} />
-      <MarginLeft>
-        <Button name={EMAIL} text="SEND" onClick={onClick} disabled={progress} />
-      </MarginLeft>
-      {/* progress === true => show boxes for input auth code */}
-      {progress && (
-        <>
+      {!progress ? (
+        <section>
+          <Input name={EMAIL} placeholder="EMAIL FOR AUTH" value={email} onChange={onChange} disabled={progress} />
+          <MarginLeft>
+            <Button name={EMAIL} text="SEND" onClick={onClick} disabled={progress} />
+          </MarginLeft>
+        </section>
+      ) : (
+        <MarginRight>
+          <Input name={EMAIL} placeholder="EMAIL FOR AUTH" value={email} onChange={onChange} disabled={progress} />
+        </MarginRight>
+      )}
+      {progress && !authState && (
+        <section>
           <Input name={CODE} placeholder="AUTH CODE" value={code} onChange={onChange} disabled={authState} />
           <MarginLeft>
-            <Button name={CODE} text="SEND" onClick={onClick} />
+            <Button name={CODE} text="SEND" onClick={onClick} disabled={authState} />
           </MarginLeft>
-        </>
+        </section>
       )}
-      {/* authState === true => show layers for input password, username */}
       {authState && (
-        <>
-          <Input placeholder="PW" value="" onChange={() => null} />
-          <Input placeholder="Check Pw" value="" onChange={() => null} />
-        </>
+        <section>
+          <MarginRight>
+            <InputLayer>
+              <Input placeholder="PW" value="" onChange={() => null} />
+            </InputLayer>
+            <InputLayer>
+              <Input placeholder="CHECK PW" value="" onChange={() => null} />
+            </InputLayer>
+            <InputLayer>
+              <Input placeholder="USER NAME" value="" onChange={() => null} />
+            </InputLayer>
+          </MarginRight>
+          <ButtonLayer>
+            <Button text="SIGN UP" onClick={() => undefined} />
+          </ButtonLayer>
+        </section>
       )}
     </SignContainer>
   );
