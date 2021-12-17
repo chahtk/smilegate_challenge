@@ -8,6 +8,9 @@ const signUpService = async (email, pass, userName) => {
 
 const signInService = async (email, pass) => {
   const [user, err] = await signInModel(email, pass);
+
+  if (err) return [false, err];
+
   const token = await jwt.sign(user);
   return [{ token, user: user.name }, err];
 };

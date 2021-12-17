@@ -18,11 +18,11 @@ const signInController = async (req, res) => {
 
   const [cookieData, err] = await signInService(email, pass);
 
+  if (err) res.status(400).end();
+
   res.cookie('jwt', cookieData.token);
   res.cookie('user', cookieData.user);
-
-  if (cookieData.token) res.status(200).end();
-  else res.status(400).end();
+  res.status(200).end();
 };
 
 module.exports = { signUpController, signInController };
