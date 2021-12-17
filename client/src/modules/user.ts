@@ -1,6 +1,7 @@
-import { call, put, takeLeading, getContext } from 'redux-saga/effects';
+import { call, put, takeLeading } from 'redux-saga/effects';
 import { signInApi } from '../api/signApi';
 import getUserFromCookie from '../utils/getUserFromCookie';
+
 // LOGIN Action Type
 const LOGIN = 'user/LOGIN';
 const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS';
@@ -48,8 +49,6 @@ function* loginSaga(action: UserAction) {
   if (typeof status === 'number' && status === 200) {
     const user: string = yield call(getUserFromCookie);
     yield put(loginSuccessAction(user));
-    // const history = yield getContext('history');
-    // history.psuh('/');
   }
 }
 
