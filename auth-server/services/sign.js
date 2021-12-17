@@ -9,7 +9,7 @@ const signUpService = async (email, pass, userName) => {
 const signInService = async (email, pass) => {
   const [user, err] = await signInModel(email, pass);
   const token = await jwt.sign(user);
-  return [token, err];
+  return [{ token, user: user.name }, err];
 };
 
 module.exports = { signUpService, signInService };
