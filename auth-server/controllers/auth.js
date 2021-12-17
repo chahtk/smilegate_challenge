@@ -3,7 +3,7 @@ const { authEmailService, authCodeService } = require('../services/auth');
 const authEmailController = async (req, res) => {
   const { email } = req.params;
 
-  if (!email) res.status(400).end();
+  if (!email) return res.status(400).end();
 
   const [success, err] = await authEmailService(email);
 
@@ -14,7 +14,7 @@ const authEmailController = async (req, res) => {
 const authCodeController = async (req, res) => {
   const { email, code } = req.query;
 
-  if (!(email && code)) res.status(400).end();
+  if (!(email && code)) return res.status(400).end();
 
   const [correct, err] = await authCodeService(email, code);
 
