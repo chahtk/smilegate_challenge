@@ -1,6 +1,6 @@
 const corsOption = {
   origin: 'http://localhost:3000',
-  credential: true,
+  credentials: true,
 };
 
 module.exports = corsOption;
