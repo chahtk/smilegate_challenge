@@ -9,4 +9,11 @@ const mysqlOption = {
 
 const pool = mysql.createPool(mysqlOption);
 
-module.exports = pool;
+const useQuery = async (query, data) => {
+  const conn = await pool.getConnection((connection) => connection);
+  const result = await conn.query(query, data);
+  conn.release();
+  return result;
+};
+
+module.exports = { pool, useQuery };
