@@ -1,79 +1,87 @@
-import { call, delay, put, takeLeading } from 'redux-saga/effects';
-// import { getUserProfile, UserProfile } from '../api/testApi';
+import { call, put, takeLeading, getContext } from 'redux-saga/effects';
+import { signInApi } from '../api/signApi';
 
 // LOGIN Action Type
-const LOGIN = 'LOGIN';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_ERROR = 'LOGIN_ERROR';
-
+const LOGIN = 'user/LOGIN';
+const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS';
+const LOGIN_ERROR = 'user/LOGIN_ERROR';
 const LOGOUT = 'user/LOGOUT';
 
 // type of state
 type UserState = {
   login: boolean;
-  id: number;
+  user: string;
   email: string;
+  password: string;
 };
 
 // Action Generator (return Action Type)
-export const loginAction = () => ({
+export const loginAction = (email: string, password: string) => ({
   type: LOGIN,
+  email,
+  password,
 });
-export const loginSuccessAction = (action: any) => ({
+const loginSuccessAction = (user: string) => ({
   type: LOGIN_SUCCESS,
-  payload: action.payload,
+  user: user,
 });
+const loginErrorAction = () => ({ type: LOGIN_ERROR });
 export const logoutAction = () => ({
   type: LOGOUT,
 });
 
-function* loginSaga() {
-  yield delay(2000);
-  // try {
-  //   const data: UserProfile = yield call(getUserProfile);
-  //   yield put({
-  //     type: LOGIN_SUCCESS,
-  //     payload: data,
-  //   });
-  // } catch (e) {
-  //   yield put({
-  //     type: LOGIN_ERROR,
-  //     payload: e,
-  //     error: true,
-  //   });
-  // }
+// Type of Action Generator
+type UserAction = {
+  type: string;
+  email: string;
+  password: string;
+  user: string;
+};
+
+// saga
+function* loginSaga(action: UserAction) {
+  const status: Promise<number | boolean> = yield call(signInApi, action.email, action.password);
+
+  if (typeof status === 'boolean') {
+    put(loginErrorAction());
+  }
+  if (typeof status === 'number' && status === 200) {
+    const { cookie } = document;
+    const user = cookie.split(';')[0].slice(5); // get only user from cookie
+    yield put(loginSuccessAction(user));
+    // const history = yield getContext('history');
+    // history.psuh('/');
+  }
 }
 
 export function* userSaga() {
   yield takeLeading(LOGIN, loginSaga);
 }
 
-// Type of Action Generator
-type UserAction =
-  | ReturnType<typeof loginAction>
-  | ReturnType<typeof logoutAction>
-  | ReturnType<typeof loginSuccessAction>;
-
 const initialState: UserState = {
   login: false,
-  id: -1,
-  email: 'default',
+  user: 'init',
+  email: 'init',
+  password: 'init',
 };
 
-const userReducer = (state: UserState = initialState, action: any): UserState => {
+const userReducer = (state: UserState = initialState, action: UserAction): UserState => {
   switch (action.type) {
     case LOGIN:
       return {
-        login: false,
-        id: 999,
-        email: 'loading',
+        ...state,
+        email: action.email,
+        password: action.password,
       };
     case LOGIN_SUCCESS:
       return {
         login: true,
-        id: action.payload.id,
-        email: action.payload.email,
+        user: action.user,
+        email: 'logined',
+        password: 'logined',
       };
+    case LOGIN_ERROR:
+      return initialState;
     case LOGOUT:
       return initialState;
     default:

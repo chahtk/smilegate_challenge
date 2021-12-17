@@ -3,8 +3,8 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import { InputLayer, SignContainer } from '../styles/signContainer';
-import { signInApi } from '../api/signApi';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../modules/user';
 
 const SignLayer = styled.article`
   float: right;
@@ -26,8 +26,8 @@ const SigninContainer = () => {
   // name of input-component
   const [EMAIL, PASSWORD] = ['email', 'password'];
 
-  // for redirect
-  const history = useHistory();
+  // redux
+  const dispatch = useDispatch();
 
   // state
   const [email, setEmail] = useState('');
@@ -41,15 +41,7 @@ const SigninContainer = () => {
   };
   const onClick = async () => {
     setLoading(true);
-    const status = await signInApi(email, password);
-    // todo: change
-    if (status === 200) {
-      console.log('cookie:', document.cookie);
-      // history.push('/signup');
-    } else {
-      alert('wrong!');
-      setPassword('');
-    }
+    dispatch(loginAction(email, password));
     setLoading(false);
   };
   const cantsubmit = () => !(email !== '' && password !== '');
