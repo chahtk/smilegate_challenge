@@ -1,6 +1,9 @@
 const codeGenerator = require('../utils/codeGenerator');
 const sendMail = require('../utils/sendMail');
-const { setEmailAndCode2Redis } = require('../models/auth');
+const {
+  setEmailAndCode2Redis,
+  getCodeUsingEmailRedis,
+} = require('../models/auth');
 
 const authEmailService = async (email) => {
   const code = codeGenerator();
@@ -12,4 +15,10 @@ const authEmailService = async (email) => {
   }
 };
 
-module.exports = { authEmailService };
+const authCodeService = async (email, code) => {
+  const [storedCode, err] = await getCodeUsingEmailRedis(email);
+  if (code === storedCode) return [true, null];
+  return [false, err];
+};
+
+module.exports = { authEmailService, authCodeService };

@@ -1,4 +1,4 @@
-const { authEmailService } = require('../services/auth');
+const { authEmailService, authCodeService } = require('../services/auth');
 
 const authEmailController = async (req, res) => {
   const { email } = req.params;
@@ -11,4 +11,15 @@ const authEmailController = async (req, res) => {
   else res.status(400).end();
 };
 
-module.exports = { authEmailController };
+const authCodeController = async (req, res) => {
+  const { email, code } = req.query;
+
+  if (!(email && code)) res.status(400).end();
+
+  const [correct, err] = await authCodeService(email, code);
+
+  if (correct) res.status(204).end();
+  else res.status(400).end();
+};
+
+module.exports = { authEmailController, authCodeController };

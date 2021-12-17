@@ -9,4 +9,13 @@ const setEmailAndCode2Redis = async (email, code) => {
   return [true, null];
 };
 
-module.exports = { setEmailAndCode2Redis };
+const getCodeUsingEmailRedis = async (email) => {
+  try {
+    const storedCode = await redis.get(email);
+    return [storedCode, null];
+  } catch (err) {
+    return [false, err];
+  }
+};
+
+module.exports = { setEmailAndCode2Redis, getCodeUsingEmailRedis };
