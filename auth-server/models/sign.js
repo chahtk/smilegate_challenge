@@ -15,7 +15,7 @@ const signInModel = async (email, pass) => {
     const result = await useQuery(signInQuery, [email, pass]);
 
     // result[0][0] : userInfo
-    if (result[0][0]) return [true, null];
+    if (result[0][0]) return [result[0][0], null];
     throw new Error('wrong email or password');
   } catch (err) {
     return [false, err];

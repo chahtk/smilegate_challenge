@@ -16,9 +16,11 @@ const signInController = async (req, res) => {
 
   if (!(email && pass)) return res.status(400).end();
 
-  const [correct, err] = await signInService(email, pass);
+  const [token, err] = await signInService(email, pass);
 
-  if (correct) res.status(200).json('sign in ok');
+  res.cookie('jwt', token);
+
+  if (token) res.status(200).end();
   else res.status(400).end();
 };
 
