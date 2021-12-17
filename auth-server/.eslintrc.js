@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', OS.EOL === '\r\n' ? 'windows' : 'unix'],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'consistent-return': 0,
   },
   ignorePatterns: ['node_modules/'],
 };
