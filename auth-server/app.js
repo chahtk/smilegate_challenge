@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const indexRouter = require('./routes/index');
 const redis = require('./config/redis');
+const corsOption = require('./config/cors');
 require('./config/mysql');
 
 const app = express();
@@ -15,7 +16,7 @@ const app = express();
 redis.connect();
 
 // cors
-app.use(cors());
+app.use(cors(corsOption));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
