@@ -1,7 +1,11 @@
-const { signUpModel } = require('../models/sign');
+const { signUpModel, signInModel } = require('../models/sign');
 
 const signUpService = (email, pass, userName) => {
   return signUpModel(email, pass, userName);
 };
 
-module.exports = { signUpService };
+const signInService = (email, pass) => {
+  return signInModel(email, pass);
+};
+
+module.exports = { signUpService, signInService };
