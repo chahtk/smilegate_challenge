@@ -1,41 +1,27 @@
-const mysql = require('../config/mysql');
+const pool = require('../config/mysql');
 const { signUpQuery, signInQuery } = require('./queries.json');
 
-const signUpModel = (email, pass, userName) => {
+const signUpModel = async (email, pass, userName) => {
   try {
-    mysql.getConnection((connectionErr, conn) => {
-      if (connectionErr) {
-        if (conn) conn.release();
-        throw connectionErr;
-      }
-      conn.query(signUpQuery, [email, pass, userName, 0], (queryErr) => {
-        if (queryErr) {
-          throw queryErr;
-        }
-        conn.release();
-      });
-    });
+    const data = [email, pass, userName];
+    const conn = await pool.getConnection((connection) => connection);
+    await conn.query(signUpQuery, data);
+    conn.release();
     return [true, null];
   } catch (err) {
     return [false, err];
   }
 };
 
-const signInModel = (email, pass) => {
+const signInModel = async (email, pass) => {
   try {
-    mysql.getConnection((connectionErr, conn) => {
-      if (connectionErr) {
-        if (conn) conn.release();
-        throw connectionErr;
-      }
-      conn.query(signInQuery, [email, pass], (queryErr) => {
-        if (queryErr) {
-          throw queryErr;
-        }
-        conn.release();
-      });
-    });
-    return [true, null];
+    const data = [email, pass];
+    const conn = await pool.getConnection((connection) => connection);
+    const result = await conn.query(signInQuery, data);
+    conn.release();
+    // is correct email, password?
+    if (result[0][0]) return [true, null];
+    throw new Error('wrong email or password');
   } catch (err) {
     return [false, err];
   }
