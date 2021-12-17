@@ -3,6 +3,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import { InputLayer, SignContainer } from '../styles/signContainer';
+import { signInApi } from '../api/signApi';
 
 const SignLayer = styled.article`
   float: right;
@@ -33,11 +34,11 @@ const SigninContainer = () => {
     if (e.target.name === EMAIL) setEmail(e.target.value);
     if (e.target.name === PASSWORD) setPassword(e.target.value);
   };
-  const onClick = () => {
+  const onClick = async () => {
     // send (email + password) using api
-    console.log('try login api');
+    await signInApi(email, password);
   };
-
+  const cantsubmit = () => !(email !== '' && password !== '');
   return (
     <SignContainer>
       <h2>LOGIN</h2>
@@ -48,10 +49,8 @@ const SigninContainer = () => {
         <Input name={PASSWORD} value={password} placeholder="PW" type="password" onChange={onChange} />
       </InputLayer>
       <SignLayer>
-        <A href="/signup" target="_blank">
-          sign up
-        </A>
-        <Button onClick={onClick} text="SIGN IN" />
+        <A href="/signup">sign up</A>
+        <Button onClick={onClick} text="SIGN IN" disabled={cantsubmit()} />
       </SignLayer>
     </SignContainer>
   );
