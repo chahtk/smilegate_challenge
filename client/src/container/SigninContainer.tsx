@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import styled from 'styled-components';
 import { InputLayer, SignContainer } from '../styles/signContainer';
 import { signInApi } from '../api/signApi';
+import { useHistory } from 'react-router-dom';
 
 const SignLayer = styled.article`
   float: right;
@@ -25,9 +26,13 @@ const SigninContainer = () => {
   // name of input-component
   const [EMAIL, PASSWORD] = ['email', 'password'];
 
+  // for redirect
+  const history = useHistory();
+
   // state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // event handlers
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +40,15 @@ const SigninContainer = () => {
     if (e.target.name === PASSWORD) setPassword(e.target.value);
   };
   const onClick = async () => {
-    // send (email + password) using api
-    await signInApi(email, password);
+    setLoading(true);
+    const status = await signInApi(email, password);
+    // todo: change
+    if (status === 200) history.push('/signup');
+    else {
+      alert('wrong!');
+      setPassword('');
+    }
+    setLoading(false);
   };
   const cantsubmit = () => !(email !== '' && password !== '');
   return (
@@ -50,7 +62,7 @@ const SigninContainer = () => {
       </InputLayer>
       <SignLayer>
         <A href="/signup">sign up</A>
-        <Button onClick={onClick} text="SIGN IN" disabled={cantsubmit()} />
+        <Button onClick={onClick} text="SIGN IN" disabled={cantsubmit()} loading={loading} />
       </SignLayer>
     </SignContainer>
   );
