@@ -1,0 +1,3 @@
+{
+  "signUpQuery": "insert into User(email, password, name, admin) values(?,?,?,?)"
+}
