@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from './modules';
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
+import getUserFromCookie from './utils/getUserFromCookie';
 
 function App() {
-  const userInfo = useSelector((state: RootState) => state.user);
-  return <>{userInfo.login ? <PrivateRoute /> : <PublicRoute />}</>;
+  const user = getUserFromCookie();
+  return <>{user ? <PrivateRoute /> : <PublicRoute />}</>;
 }
 
 export default App;
