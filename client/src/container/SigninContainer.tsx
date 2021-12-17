@@ -43,8 +43,10 @@ const SigninContainer = () => {
     setLoading(true);
     const status = await signInApi(email, password);
     // todo: change
-    if (status === 200) history.push('/signup');
-    else {
+    if (status === 200) {
+      console.log('cookie:', document.cookie);
+      // history.push('/signup');
+    } else {
       alert('wrong!');
       setPassword('');
     }
