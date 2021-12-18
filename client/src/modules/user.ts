@@ -51,8 +51,9 @@ function* loginSaga(action: UserAction) {
   if (typeof status === 'number' && status === 200) {
     const user: string = yield call(getUserFromCookie);
     yield put(loginSuccessAction(user));
-    const history: History<unknown> = yield getContext('history');
-    history.push('/');
+    location.reload();
+    // const history: History<unknown> = yield getContext('history');
+    // history.push('/');
   }
 }
 
