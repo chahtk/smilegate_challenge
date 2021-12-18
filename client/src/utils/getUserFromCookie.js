@@ -4,7 +4,7 @@ const getUserFromCookie = () => {
 
   return arr
     .map((el) => {
-      const [key, val] = el.split('=');
+      const [key, val] = el.trim().split('=');
       if (key === 'user') return val;
     })
     .filter((el) => el)[0];
