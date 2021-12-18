@@ -23,7 +23,7 @@ export const loginAction = (email: string, password: string) => ({
   email,
   password,
 });
-const loginSuccessAction = (user: string) => ({
+export const loginSuccessAction = (user: string) => ({
   type: LOGIN_SUCCESS,
   user: user,
 });
@@ -51,9 +51,6 @@ function* loginSaga(action: UserAction) {
   if (typeof status === 'number' && status === 200) {
     const user: string = yield call(getUserFromCookie);
     yield put(loginSuccessAction(user));
-    location.reload();
-    // const history: History<unknown> = yield getContext('history');
-    // history.push('/');
   }
 }
 
