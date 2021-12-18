@@ -1,7 +1,7 @@
 import { call, put, takeLeading, getContext } from 'redux-saga/effects';
 import { signInApi } from '../api/signApi';
 import getUserFromCookie from '../utils/getUserFromCookie';
-import { History } from 'history';
+import deleteCookie from '../utils/deleteCookie';
 
 // LOGIN Action Type
 const LOGIN = 'user/LOGIN';
@@ -54,8 +54,14 @@ function* loginSaga(action: UserAction) {
   }
 }
 
+function* logoutSaga() {
+  deleteCookie('user');
+  deleteCookie('jwt');
+}
+
 export function* userSaga() {
   yield takeLeading(LOGIN, loginSaga);
+  yield takeLeading(LOGOUT, logoutSaga);
 }
 
 const initialState: UserState = {
