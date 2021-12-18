@@ -4,6 +4,7 @@ const { secretKey, option } = require('../config/jwt');
 const sign = async (user) => {
   const payload = {
     email: user.email,
+    admin: user.admin,
   };
   return jwt.sign(payload, secretKey, option);
 };
