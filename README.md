@@ -28,7 +28,7 @@
 
 ## Auth DB ERD
 
-![ERD](https://user-images.githubusercontent.com/44664867/146671256-d399659a-0fe9-4862-bed5-b632f7375691.png)
+<img width="180" alt="ERD" src="https://user-images.githubusercontent.com/44664867/146677521-03a57592-4259-43fa-a38e-f24fa567fa34.png">
 
 현재 인증을 위한 User 테이블 밖에 없음.
 
