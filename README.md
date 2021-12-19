@@ -1,7 +1,5 @@
 ## 프로젝트 개요
 
----
-
 회원가입, 로그인, 관리자 페이지가 구현됐습니다.
 
 - 사용자는 회원가입 페이지에서 이메일 인증을 한 후, 비밀번호, 유저이름 입력을 하여 회원가입을 마칠 수 있습니다.
@@ -10,21 +8,22 @@
 - admin user는 admin 버튼을 누르면 현재 가입한 유저들의 리스트를 볼 수 있습니다.
 
 <br>
+<br>
 
 ## 아키텍처
-
----
 
 ### 인증 서버
 
 ![시스템아키텍처 복사본](https://user-images.githubusercontent.com/44664867/146670267-921dd2d6-6377-4d32-ade8-ef12e5064226.JPG)
 
 <br>
+<br>
 
 ### 추후 API 서버 구현시의 MSA 아키텍처
 
 ![architecture](https://user-images.githubusercontent.com/44664867/146127014-9ac5cb2c-db5f-435a-a8c8-dca4baea706e.JPG)
 
+<br>
 <br>
 
 ## Auth DB ERD
@@ -37,9 +36,10 @@
 - password : 암호화를 고려하여 데이터 길이를 정함
 - admin : admin이면 1, 아니면 0
 
-## 시나리오
+<br>
+<br>
 
----
+## 시나리오
 
 ### 회원가입
 
@@ -88,6 +88,7 @@
 ![loginadmin](https://user-images.githubusercontent.com/44664867/146671015-95fbe931-0a05-4179-932e-13c27ccbd3cd.gif)
 
 <br>
+<br>
 
 ## 프론트엔드 디렉토리구조
 
@@ -112,6 +113,7 @@
 - container : 용도가 정해진 컴포넌트. 독립적이어야 함.
 - layout : 컴포넌트들을 디자인에 맞춰 배치. 한 페이지에 복수의 레이아웃이 있을 수 있음. (e.g. nav, main 따로 하고 index에서 합치기)
 
+<br>
 <br>
 
 ## 백엔드 디렉토리구조
