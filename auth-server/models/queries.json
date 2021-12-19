@@ -1,5 +1,5 @@
 {
-  "signUpQuery": "insert into User(email, password, name) values(?,?,?)",
-  "signInQuery": "select * from User where email=? and password=?",
+  "signUpQuery": "insert into User(email, password, salt, name) values(?,?,?,?)",
+  "signInQuery": "select * from User where email=? and password=? and salt=?",
   "getAllUserNameQuery": "select name from user"
 }
